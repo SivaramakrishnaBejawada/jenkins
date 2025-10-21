@@ -1,14 +1,14 @@
 FROM centos
 RUN yum -y install openssh-server
-RUN useradd New_Jenkins_User && \
-    echo "New_Jenkins_User" | Password New_Jenkins_User --stdin && \
-    mkdir /home/New_Jenkins_User/.ssh && \
-    chmod 700 /home/New_Jenkins_User/.ssh
+RUN useradd remote-user && \
+    echo "remote-user" | Password remote-user --stdin && \
+    mkdir /home/remote-user/.ssh && \
+    chmod 700 /home/remote-user/.ssh
 
 #here we need to generate an sshkey using sshkeygen and use it below
 
-COPY secure-key.pub /home/New_Jenkins_User/.ssh/authorized_keys
-RUN chown New_Jenkins_User:New_Jenkins_User -R /home/New_Jenkins_User/.ssh/ && \
-    chmod 600 /home/New_Jenkins_User/.ssh/authorized_keys
+COPY secure-key.pub /home/remote-user/.ssh/authorized_keys
+RUN chown remote-user:remote-user -R /home/remote-user/.ssh/ && \
+    chmod 600 /home/remote-user/.ssh/authorized_keys
 RUN /usr/sbin/sshd-keygen
 CMD /usr/sbin/sshd -D
