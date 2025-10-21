@@ -9,13 +9,11 @@ services:
       - $PWD/jenkins_home:/var/jenkins_home
     networks:
       - net
-networks:
-  net:
   remote-user:
     container_name: remote-user
     image: remote-user
     build: 
-      context: centos
+      context: ubuntu:22.04
     networks:
       - net
 networks:
