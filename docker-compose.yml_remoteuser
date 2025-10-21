@@ -13,7 +13,7 @@ services:
     container_name: remote-user
     image: remote-user
     build: 
-      context: ubuntu:22.04
+      context: ubuntu
     networks:
       - net
 networks:
