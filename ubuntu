@@ -1,13 +1,10 @@
-FROM ubuntu:22.04
+FROM ubuntu
 RUN apt-get update && \
     apt-get install -y openssh-server
 RUN useradd remote-user && \
     echo "remote-user" | Password remote-user --stdin && \
     mkdir /home/remote-user/.ssh && \
     chmod 700 /home/remote-user/.ssh
-
-#here we need to generate an sshkey using sshkeygen and use it below
-
 COPY secure-key.pub /home/remote-user/.ssh/authorized_keys
 RUN chown remote-user:remote-user -R /home/remote-user/.ssh/ && \
     chmod 600 /home/remote-user/.ssh/authorized_keys
